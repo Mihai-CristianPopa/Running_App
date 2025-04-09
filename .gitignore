@@ -1,2 +1,4 @@
 __pycache__/
 run_app_venv/
+build_apk/
+run_app/
