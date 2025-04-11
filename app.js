@@ -7,7 +7,7 @@ const timeResult = document.getElementById('time-result');
 
 import { getSpeedPerHourMessage } from './utils/speed.js';
 import { getTimeBasedOnSpeedMessage } from './utils/timeFromSpeed.js';
-import { bindClickAndTouch, validateInput } from './utils/helpers.js';
+import { bindClickAndTouch, changeValueOfNumericInput, validateInput } from './utils/helpers.js';
 import { isNonNegativeInteger, isNonNegativeFloat, isValidTimeFormat } from './utils/validators.js';
 
 bindClickAndTouch(document.getElementById('compute-speed-btn'), () => {
@@ -35,6 +35,14 @@ bindClickAndTouch(document.getElementById('compute-time-btn'), () => {
         timeResult.textContent = 'Error: ' + error.message;
     }
 });
+
+bindClickAndTouch(document.getElementById('increment-distance-btn'), () => changeValueOfNumericInput(distanceInput, 1))
+
+bindClickAndTouch(document.getElementById('decrement-distance-btn'), () => changeValueOfNumericInput(distanceInput, 1, "integer", false))
+
+bindClickAndTouch(document.getElementById('increment-speed-btn'), () => changeValueOfNumericInput(speedInput, 0.1, "float", true))
+
+bindClickAndTouch(document.getElementById('decrement-speed-btn'), () => changeValueOfNumericInput(speedInput, 0.1, "float", false))
 
 validateInput(distanceInput, (val) => isNonNegativeInteger(val), "Distance must be a positive integer", [document.getElementById('compute-speed-btn'), document.getElementById('compute-time-btn')])
 validateInput(speedInput, (val) => isNonNegativeFloat(val), "Speed must be a positive floating point number", [document.getElementById('compute-time-btn')])
