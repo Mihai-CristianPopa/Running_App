@@ -1,110 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Runner's App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .block {
-            margin-bottom: 20px;
-        }
-        label {
-            font-size: 18px;
-            margin-right: 10px;
-        }
-        input, select {
-            padding: 5px;
-            margin-right: 10px;
-        }
-        button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        .result {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #333;
-        }
-        input.invalid {
-            border: 2px solid red;
-        }
-        .error-message {
-            color: red;
-            font-size: 0.9em;
-            margin-bottom: 4px;
-            animation: fadeIn 0.3s ease-in-out;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Runner's App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      box-sizing: border-box;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
+    .container {
+      max-width: 85%;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      padding: 1.5rem;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    .header {
+        padding: 2rem;
+        background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+        border-radius: 0.75rem;
+        text-align: center;
+    }
+    
+    .header h1 {
+        margin: 0;
+        color: #fff;
+        font-size: 2rem;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    label {
+      font-size: 1.125rem;
+      flex: 1 1 20%;
+    }
+
+    input, select {
+      padding: 0.625rem;
+      border: none;
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.85);
+      color: #000;
+      flex: 1 1 15%;
+      min-width: 6.25rem;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #4CAF50;
+      background: #fff;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.625rem 1rem;
+      font-weight: bold;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    select {
+      text-align: center;
+      text-align-last: center;
+    }
+
+    .result {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      flex: 1 1 100%;
+    }
+
+    input.invalid {
+      border: 2px solid red;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      animation: fadeIn 0.3s ease-in-out;
+      flex: 1 1 100%;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .block {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      label, input, select, button, .result {
+        flex: 1 1 100%;
+        margin-right: 0;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: 2000px) {
+      .container {
+        max-width: 90%;
+      }
+
+      h1 {
+        font-size: 2.25rem;
+      }
+
+      label {
+        font-size: 1.25rem;
+      }
+
+      input, select, button {
+        font-size: 1.1rem;
+        padding: 0.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
+  <div class="container">
+    <div class="header">
         <h1>Running Speed and Time Computations</h1>
-
-        <!-- Unit selection dropdown -->
-        <div class="block">
-            <label for="unit">Choose the unit of measurement for the computations:</label>
-            <select id="unit">
-                <option value="km">km</option>
-                <option value="miles">miles</option>
-            </select>
-        </div>
-
-        <!-- Distance input with increment and decrement buttons -->
-        <div class="block">
-            <div class="error-message" style="display: none;"></div>
-            <label for="distance">Enter a distance value:</label>
-            <input type="number" id="distance" value="4.0" min="0.0" style="width: 60px; text-align: center;" />
-            <button id="increment-distance-btn">+</button>
-            <button id="decrement-distance-btn">-</button>
-            <select id="distance-step">
-                <option value="0.1">0.1</option>
-                <option value="1.0" selected>1.0</option>
-            </select>
-        </div>
-
-        <!-- Script 1: Compute needed speed -->
-        <div class="block">
-            <div class="error-message" style="display: none;"></div>
-            <label for="time">Enter time to obtain:</label>
-            <input type="text" id="time" value="22.00" style="width: 60px; text-align: center;"/>
-            <button id="compute-speed-btn">Compute Needed Speed</button>
-            <div class="result" id="speed-result">Needed speed will appear here...</div>
-        </div>
-
-        <!-- Script 2: Compute time based on speed -->
-        <div class="block">
-            <div class="error-message" style="display: none;"></div>
-            <label for="speed">Enter speed per hour:</label>
-            <input type="number" id="speed" value="11.0" min="0.0" style="width: 60px; text-align: center;" />
-            <button id="increment-speed-btn">+</button>
-            <button id="decrement-speed-btn">-</button>
-            <select id="speed-step">
-                <option value="0.1" selected>0.1</option>
-                <option value="1.0">1.0</option>
-            </select>
-            <button id="compute-time-btn">Compute Time</button>
-            <div class="result" id="time-result">Time to cover distance will appear here...</div>
-        </div>
     </div>
 
-    <script type="module" src="app.js"></script>
+    <!-- Unit selection -->
+    <div class="block">
+      <label for="unit">Choose the unit of measurement for the computations:</label>
+      <select id="unit">
+        <option value="km">km</option>
+        <option value="miles">miles</option>
+      </select>
+    </div>
 
+    <!-- Distance input -->
+    <div class="block">
+      <div class="error-message" style="display: none;"></div>
+      <label for="distance">Enter a distance value:</label>
+      <input type="number" id="distance" value="4.0" min="0.0" style="width: 60px; text-align: center;" />
+      <button id="increment-distance-btn">+</button>
+      <button id="decrement-distance-btn">-</button>
+      <select id="distance-step">
+        <option value="0.1">0.1</option>
+        <option value="1.0" selected>1.0</option>
+      </select>
+    </div>
+
+    <!-- Time input and speed computation -->
+    <div class="block">
+      <div class="error-message" style="display: none;"></div>
+      <label for="time">Enter time to obtain:</label>
+      <input type="text" id="time" value="22.00" style="width: 60px; text-align: center;" />
+      <button id="compute-speed-btn">Compute Needed Speed</button>
+      <div class="result" id="speed-result">Needed speed will appear here...</div>
+    </div>
+
+    <!-- Speed input and time computation -->
+    <div class="block">
+      <div class="error-message" style="display: none;"></div>
+      <label for="speed">Enter speed per hour:</label>
+      <input type="number" id="speed" value="11.0" min="0.0" style="width: 60px; text-align: center;" />
+      <button id="increment-speed-btn">+</button>
+      <button id="decrement-speed-btn">-</button>
+      <select id="speed-step">
+        <option value="0.1" selected>0.1</option>
+        <option value="1.0">1.0</option>
+      </select>
+      <button id="compute-time-btn">Compute Time</button>
+      <div class="result" id="time-result">Time to cover distance will appear here...</div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
