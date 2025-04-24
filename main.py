@@ -79,7 +79,7 @@ class MyApp(App):
         script_two_block.add_widget(script_two_horizontal_layout)
         script_two_block.add_widget(self.label_two)
 
-        # Add all widgets
+        # Add all widgets 
         self.layout.add_widget(dropdown_horizontal_layout)
         self.layout.add_widget(int_input_layout)
         self.layout.add_widget(script_one_block)
