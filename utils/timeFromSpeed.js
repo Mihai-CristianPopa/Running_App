@@ -6,11 +6,11 @@ function computeSecondsFromSpeed(kph) {
     return Math.round(SECONDS_PER_HOUR / kph);
 }
 
-function getTimeBasedOnSpeed(speed, distance = 4, unit = "km") {
+function getTimeBasedOnSpeed(speed, distance = 4.0, unit = "km") {
     if (unit === "miles") {
         distance = kilometerToMiles(distance);
     }
-    const seconds = computeSecondsFromSpeed(speed) * distance;
+    const seconds = Math.floor(computeSecondsFromSpeed(speed) * distance);
     const formattedTime = computeStrTimeFromSeconds(seconds);
     return new Time(formattedTime);
 }

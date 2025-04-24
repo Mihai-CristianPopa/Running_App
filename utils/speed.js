@@ -6,7 +6,7 @@ function computeSpeed(secondsPerUnit) {
     return +(SECONDS_PER_HOUR / secondsPerUnit).toFixed(2);
 }
 
-function getSpeedPerHour(timeToObtainStr, distance = 4, distanceUnit = 'km') {
+function getSpeedPerHour(timeToObtainStr, distance = 4.0, distanceUnit = 'km') {
     const timeToObtain = new Time(timeToObtainStr);
     const totalSeconds = timeToObtain.transformInSeconds();
 
