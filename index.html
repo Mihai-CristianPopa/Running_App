@@ -36,11 +36,26 @@
         input.invalid {
             border: 2px solid red;
         }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Unit Conversion and Time-Speed Computations</h1>
+        <h1>Runner Speed and Time Computations</h1>
 
         <!-- Unit selection dropdown -->
         <div class="block">
@@ -53,6 +68,7 @@
 
         <!-- Distance input with increment and decrement buttons -->
         <div class="block">
+            <div class="error-message" style="display: none;"></div>
             <label for="distance">Enter a distance value:</label>
             <input type="number" id="distance" value="4.0" min="0.0" style="width: 60px; text-align: center;" />
             <button id="increment-distance-btn">+</button>
@@ -61,6 +77,7 @@
 
         <!-- Script 1: Compute needed speed -->
         <div class="block">
+            <div class="error-message" style="display: none;"></div>
             <label for="time">Enter time to obtain:</label>
             <input type="text" id="time" value="22.00" style="width: 60px; text-align: center;"/>
             <button id="compute-speed-btn">Compute Needed Speed</button>
@@ -69,6 +86,7 @@
 
         <!-- Script 2: Compute time based on speed -->
         <div class="block">
+            <div class="error-message" style="display: none;"></div>
             <label for="speed">Enter speed per hour:</label>
             <input type="number" id="speed" value="11.0" min="0.0" step="0.1" style="width: 60px; text-align: center;" />
             <button id="increment-speed-btn">+</button>

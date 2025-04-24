@@ -35,15 +35,25 @@ export function computeStrTimeFromSeconds(seconds) {
 }
 
 export function validateInput(inputElement, isValidFn, errorMessage, relatedButtons = []) {
+    const errorDisplay = inputElement.parentNode.querySelector('.error-message');
     inputElement.addEventListener('input', () => {
         const value = inputElement.value;
         if (!isValidFn(value)) {
-            inputElement.title = errorMessage;
-            inputElement.classList.add('invalid');
+            if(isPhoneUser()) {
+              errorDisplay.textContent = errorMessage;
+              errorDisplay.style.display = 'block';
+            } else {
+              inputElement.title = errorMessage;
+              inputElement.classList.add('invalid');
+            }
             relatedButtons.forEach(btn => btn.disabled = true);
         } else {
-            inputElement.title = "";
-            inputElement.classList.remove('invalid');
+            if(isPhoneUser()) {
+              errorDisplay.style.display = 'none';
+            } else {
+              inputElement.title = "";
+              inputElement.classList.remove('invalid');
+            }
             relatedButtons.forEach(btn => btn.disabled = false);
         }
     });
@@ -60,4 +70,8 @@ export function changeValueOfNumericInput(inputElement, step, type="float", incr
   if (!increment) step = -step
   const result = inputValue + step
   inputElement.value = result.toFixed(1)
+}
+
+function isPhoneUser() {
+  return window.innerWidth <= 600;
 }
