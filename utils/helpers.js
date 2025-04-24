@@ -75,3 +75,7 @@ export function changeValueOfNumericInput(inputElement, step, type="float", incr
 function isPhoneUser() {
   return window.innerWidth <= 600;
 }
+
+export function extractStepValue(stepSelect) {
+  return parseFloat(stepSelect.value)
+}

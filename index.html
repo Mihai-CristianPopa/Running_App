@@ -55,7 +55,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Runner Speed and Time Computations</h1>
+        <h1>Running Speed and Time Computations</h1>
 
         <!-- Unit selection dropdown -->
         <div class="block">
@@ -73,6 +73,10 @@
             <input type="number" id="distance" value="4.0" min="0.0" style="width: 60px; text-align: center;" />
             <button id="increment-distance-btn">+</button>
             <button id="decrement-distance-btn">-</button>
+            <select id="distance-step">
+                <option value="0.1">0.1</option>
+                <option value="1.0" selected>1.0</option>
+            </select>
         </div>
 
         <!-- Script 1: Compute needed speed -->
@@ -88,9 +92,13 @@
         <div class="block">
             <div class="error-message" style="display: none;"></div>
             <label for="speed">Enter speed per hour:</label>
-            <input type="number" id="speed" value="11.0" min="0.0" step="0.1" style="width: 60px; text-align: center;" />
+            <input type="number" id="speed" value="11.0" min="0.0" style="width: 60px; text-align: center;" />
             <button id="increment-speed-btn">+</button>
             <button id="decrement-speed-btn">-</button>
+            <select id="speed-step">
+                <option value="0.1" selected>0.1</option>
+                <option value="1.0">1.0</option>
+            </select>
             <button id="compute-time-btn">Compute Time</button>
             <div class="result" id="time-result">Time to cover distance will appear here...</div>
         </div>
