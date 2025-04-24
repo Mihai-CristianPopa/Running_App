@@ -20,17 +20,16 @@
       align-items: center;
       min-height: 100vh;
     }
-  
+
     .container {
-      width: 100%;
-      max-width: 800px;
+      max-width: 85%;
       display: flex;
       flex-direction: column;
       gap: 1rem;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
-  
+
     .block {
       display: flex;
       flex-direction: column;
@@ -43,67 +42,82 @@
       align-items: center;
       justify-content: center;
     }
-  
+
     h1 {
       text-align: center;
       font-size: 2rem;
     }
-  
+
     .header {
       padding: 1rem;
       background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
       border-radius: 0.75rem;
       text-align: center;
     }
-  
+
     .header h1 {
       margin: 0;
       color: #fff;
       font-size: 2rem;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
     }
-  
+
     label {
       font-size: 1.125rem;
       text-align: center;
       width: 100%;
     }
-  
-    input, select, button {
+
+    input, select {
       padding: 0.5rem;
       border: none;
       border-radius: 0.4rem;
       font-size: 1rem;
-    }
-  
-    input, select {
       background: rgba(255, 255, 255, 0.85);
       color: #000;
       text-align: center;
       min-width: 4rem;
     }
-  
+
+    input.invalid {
+      border: 2px solid red;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #4CAF50;
+      background: #fff;
+    }
+
     button {
       background-color: #4CAF50;
       color: white;
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: none;
     }
-  
+
     button:hover {
       background-color: #45a049;
     }
-  
+
+    .large-btn {
+      font-size: 1.2rem;
+      padding: 0.75rem 1.25rem;
+    }
+
     .row-controls {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      flex: 1;
+      width: 100%;
     }
-  
+
     .result {
       font-size: 1.125rem;
       background-color: rgba(255, 255, 255, 0.2);
@@ -116,85 +130,169 @@
       -webkit-backdrop-filter: blur(4px);
       width: 100%;
     }
-  
+
     .error-message {
       color: red;
       font-size: 0.9rem;
       animation: fadeIn 0.3s ease-in-out;
     }
-  
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-  
-    @media (max-width: 600px) {
-      .row-controls {
-        flex-direction: column;
-        width: 100%;
-      }
-      .block {
-        padding: 1rem;
-      }
-    }
+
+/* Default for mobile first */
+.label-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.label-input label,
+.label-input input {
+  width: 100%;
+}
+/* 
+Laptop screens
+@media (min-width: 1024px) and (max-width: 1999px) {
+  .block {
+    align-items: center;
+  }
+
+  .label-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .label-input label {
+    flex: 4;
+  }
+
+  .label-input input,
+  .label-input select {
+    flex: 1;
+  }
+
+  .row-controls {
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .result {
+    width: 100%;
+  }
+}
+
+@media (min-width: 2000px) {
+  .block {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .label-input {
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+  }
+
+  .label-input label {
+    flex: 0 0 30%;
+    text-align: right;
+  }
+
+  .label-input input {
+    flex: 1;
+  }
+
+  .row-controls {
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .result {
+    flex: 1 1 100%;
+    margin-top: 0.5rem;
+  }
+}
+*/
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-        <h1>Running Speed and Time Computations</h1>
+      <h1>Running Speed and Time Computations</h1>
     </div>
 
     <!-- Unit selection -->
     <div class="block">
-      <label for="unit">Choose the unit of measurement for the computations:</label>
-      <select id="unit">
-        <option value="km">km</option>
-        <option value="miles">miles</option>
-      </select>
+      <div class="label-input">
+        <label for="unit">Choose the unit of measurement for the computations:</label>
+        <select id="unit">
+          <option value="km">km</option>
+          <option value="miles">miles</option>
+        </select>
+      </div>
     </div>
 
     <!-- Distance input -->
     <div class="block">
-        <div class="error-message" style="display: none;"></div>
+      <div class="error-message" style="display: none;"></div>
+      <div class="label-input">
         <label for="distance">Enter a distance value:</label>
-        <div class="row-controls">
-          <input type="number" id="distance" value="4.0" min="0.0" />
-          <button id="increment-distance-btn">+</button>
-          <button id="decrement-distance-btn">-</button>
-          <select id="distance-step">
-            <option value="0.1">0.1</option>
-            <option value="1.0" selected>1.0</option>
-          </select>
-        </div>
+        <input type="number" id="distance" value="4.0" min="0.0" />
+      </div>
+      <div class="row-controls">
+        <button id="increment-distance-btn" class="large-btn">+</button>
+        <button id="decrement-distance-btn" class="large-btn">-</button>
+        <select id="distance-step">
+          <option value="0.1">0.1</option>
+          <option value="1.0" selected>1.0</option>
+        </select>
+      </div>
     </div>
 
     <!-- Time input and speed computation -->
     <div class="block">
-        <div class="error-message" style="display: none;"></div>
+      <div class="error-message" style="display: none;"></div>
+      <div class="label-input">
         <label for="time">Enter time to obtain:</label>
-        <div class="row-controls">
-          <input type="text" id="time" value="22.00" />
-          <button id="compute-speed-btn">Compute Needed Speed</button>
-        </div>
-        <div class="result" id="speed-result">Needed speed will appear here...</div>
+        <input type="text" id="time" value="22.00" />
+      </div>
+      <div class="row-controls">
+        <button id="compute-speed-btn">Compute Needed Speed</button>
+      </div>
+      <div class="result" id="speed-result">Needed speed will appear here...</div>
     </div>
 
     <!-- Speed input and time computation -->
     <div class="block">
-        <div class="error-message" style="display: none;"></div>
+      <div class="error-message" style="display: none;"></div>
+      <div class="label-input">
         <label for="speed">Enter speed per hour:</label>
-        <div class="row-controls">
-          <input type="number" id="speed" value="11.0" min="0.0" />
-          <button id="increment-speed-btn">+</button>
-          <button id="decrement-speed-btn">-</button>
-          <select id="speed-step">
-            <option value="0.1" selected>0.1</option>
-            <option value="1.0">1.0</option>
-          </select>
-          <button id="compute-time-btn">Compute Time</button>
-        </div>
-        <div class="result" id="time-result">Time to cover distance will appear here...</div>
+        <input type="number" id="speed" value="11.0" min="0.0" />
+      </div>
+      <div class="row-controls">
+        <button id="increment-speed-btn" class="large-btn">+</button>
+        <button id="decrement-speed-btn" class="large-btn">-</button>
+        <select id="speed-step">
+          <option value="0.1" selected>0.1</option>
+          <option value="1.0">1.0</option>
+        </select>
+        <button id="compute-time-btn">Compute Time</button>
+      </div>
+      <div class="result" id="time-result">Time to cover distance will appear here...</div>
     </div>
   </div>
 
