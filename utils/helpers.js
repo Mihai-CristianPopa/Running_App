@@ -49,14 +49,14 @@ export function validateInput(inputElement, isValidFn, errorMessage, relatedButt
     });
 }
 
-export function changeValueOfNumericInput(inputElement, step, type="integer", increment=true){
+export function changeValueOfNumericInput(inputElement, step, type="float", increment=true){
   if (type === "integer") {
     increment ? inputElement.stepUp(step) : inputElement.stepDown(step);
     return;
   }
 
   const inputValue = parseFloat(inputElement.value)
-  if (inputValue <= 0) return;
+  if (inputValue - step < 0 && !increment) return;
   if (!increment) step = -step
   const result = inputValue + step
   inputElement.value = result.toFixed(1)

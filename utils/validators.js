@@ -1,3 +1,4 @@
+// Not used as of now with distance becoming a float
 export function isNonNegativeInteger(value) {
     if (value === "") return false;
     const number = Number(value)
