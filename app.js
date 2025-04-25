@@ -3,8 +3,9 @@ import { getTimeBasedOnSpeedMessage } from './utils/timeFromSpeed.js';
 import { bindClickAndTouch, changeValueOfNumericInput, extractStepValue, validateInput } from './utils/helpers.js';
 import { isNonNegativeFloat, isValidTimeFormat } from './utils/validators.js';
 document.addEventListener('DOMContentLoaded', () => {
-    const unitSelect = document.getElementById('unit');
+    const interfaceUnitSelect = document.getElementById('unit');
     const distanceInput = document.getElementById('distance');
+    const distanceUnitSelect = document.getElementById('distance-unit');
     const distanceStepSelect = document.getElementById('distance-step');
     const timeInput = document.getElementById('time');
     const speedInput = document.getElementById('speed');
@@ -29,10 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     bindClickAndTouch(document.getElementById('compute-speed-btn'), () => {
         const time = timeInput.value;
         const distance = parseFloat(distanceInput.value);
-        const unit = unitSelect.value;
+        const distanceUnit = distanceUnitSelect.value;
+        const interfaceUnit = interfaceUnitSelect.value;
 
         try {
-            const resultText = getSpeedPerHourMessage(time, distance, unit);
+            const resultText = getSpeedPerHourMessage(time, distance, distanceUnit, interfaceUnit);
             speedResult.textContent = resultText;
         } catch (error) {
             speedResult.textContent = 'Error: ' + error.message;
@@ -42,10 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
     bindClickAndTouch(document.getElementById('compute-time-btn'), () => {
         const speed = parseFloat(speedInput.value);
         const distance = parseFloat(distanceInput.value);
-        const unit = unitSelect.value;
+        const interfaceUnit = interfaceUnitSelect.value;
 
         try {
-            const resultText = getTimeBasedOnSpeedMessage(speed, distance, unit);
+            const resultText = getTimeBasedOnSpeedMessage(speed, distance, interfaceUnit);
             timeResult.textContent = resultText;
         } catch (error) {
             timeResult.textContent = 'Error: ' + error.message;

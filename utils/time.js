@@ -16,7 +16,7 @@ export class Time {
         } else if (input.includes(":")) {
             parts = input.split(":").map(Number);
             if (parts.length === 2) parts.unshift(0);
-        } else if (input.length === 2 || input.length === 3) {
+        } else if (input.length in [1, 2, 3]) {
             const minutes = parseInt(input);
             parts = minutes <= 60
                 ? [0, minutes, 0]
