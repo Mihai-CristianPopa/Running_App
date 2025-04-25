@@ -3,7 +3,7 @@ import { convertUnit } from './conversions.js';
 import { Time } from './time.js';
 
 function computeSecondsPerUnit(speed_per_hour) {
-    return Math.round(SECONDS_PER_HOUR / speed_per_hour);
+    return parseFloat(SECONDS_PER_HOUR / speed_per_hour);
 }
 
 function getTimeBasedOnSpeed(speed, distance = 4.0) {
@@ -22,10 +22,10 @@ export function getTimeBasedOnSpeedMessage(speed, speedUnit, distance, distanceU
     }
     if (interfaceUnit !== speedUnit) {
         inputtedSpeed = speed
-        speed = roundingWithDecimals(convertUnit(speed, speedUnit))
+        speed = convertUnit(speed, speedUnit)
     }
     const time = getTimeBasedOnSpeed(speed, distance);
-    return buildOutputString(speed, speedUnit, interfaceUnit, distance, distanceUnit, time.toString(), inputtedDistance, inputtedSpeed);
+    return buildOutputString(roundingWithDecimals(speed), speedUnit, interfaceUnit, roundingWithDecimals(distance, 2), distanceUnit, time.toString(), inputtedDistance, inputtedSpeed);
 }
 
 function buildOutputString(speed, speedUnit, interfaceUnit, distance, distanceUnit, stringifiedTime, inputtedDistance, inputtedSpeed){
