@@ -35,7 +35,7 @@ export function computeStrTimeFromSeconds(seconds) {
 }
 
 export function validateInput(inputElement, isValidFn, errorMessage, relatedButtons = []) {
-    const errorDisplay = inputElement.parentNode.querySelector('.error-message');
+    const errorDisplay = inputElement.closest('.block').querySelector('.error-message');
     inputElement.addEventListener('input', () => {
         const value = inputElement.value;
         if (!isValidFn(value)) {
@@ -78,4 +78,8 @@ function isPhoneUser() {
 
 export function extractStepValue(stepSelect) {
   return parseFloat(stepSelect.value)
+}
+
+export function roundingWithDecimals(floatingPointNumber, indexOfDecimalUsedForRounding = 2, numberOfDecimalsToKeep = 1) {
+  return Math.round(floatingPointNumber * (10 ** (indexOfDecimalUsedForRounding - 1))) / (10 ** numberOfDecimalsToKeep);
 }

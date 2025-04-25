@@ -156,6 +156,42 @@
 .label-input input {
   width: 100%;
 }
+
+.small-label-input {
+    display: flex; /* Use flexbox to align items in a row */
+    flex-direction: row; /* Ensure items are in a horizontal row */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Distribute space between elements */
+    width: 100%; /* Ensure it takes the full width of the container */
+    gap: 0.5rem; /* Add spacing between the label and input/select */
+  }
+
+  .small-label-input label {
+    flex: 0 0 auto; /* Prevent the label from growing or shrinking */
+    text-align: left; /* Align the label text to the left */
+    width: auto; /* Allow the label to take only the necessary width */
+  }
+
+  .small-label-input input,
+  .small-label-input select {
+    flex: 1; /* Allow the input and select to share available space */
+    min-width: 4rem; /* Ensure a minimum width for usability */
+  }
+
+.input-select-row {
+    display: flex; /* Use flexbox to align items in a row */
+    flex-direction: row; /* Ensure items are in a horizontal row */
+    gap: 0.5rem; /* Add spacing between the input and select */
+    width: 100%; /* Ensure it takes the full width of the container */
+    justify-content: center; /* Center the input and select horizontally */
+    align-items: center; /* Align items vertically in the center */
+  }
+
+  .input-select-row input,
+  .input-select-row select {
+    flex: 1; /* Allow both input and select to share available space */
+    min-width: 4rem; /* Ensure a minimum width for both elements */
+  }
 /* 
 Laptop screens
 @media (min-width: 1024px) and (max-width: 1999px) {
@@ -234,66 +270,77 @@ Laptop screens
     <div class="header">
       <h1>Running Speed and Time Computations</h1>
     </div>
+        <!-- Unit selection -->
+        <div class="block">
+          <div class="small-label-input">
+            <label for="unit">Treadmill interface unit:</label>
+            <select id="unit">
+              <option value="km">km</option>
+              <option value="miles">miles</option>
+            </select>
+          </div>
+        </div>
 
-    <!-- Unit selection -->
-    <div class="block">
-      <div class="label-input">
-        <label for="unit">Choose the unit of measurement for the computations:</label>
-        <select id="unit">
-          <option value="km">km</option>
-          <option value="miles">miles</option>
-        </select>
+      <!-- Distance input -->
+      <div class="block">
+        <div class="error-message" style="display: none;"></div>
+        <div class="label-input">
+          <label for="distance">Enter a distance value:</label>
+          <div class="input-select-row">
+            <input type="number" id="distance" value="4.0" min="0.0" />
+            <select id="distance-unit">
+              <option value="km">km</option>
+              <option value="miles">miles</option>
+            </select>
+          </div>
+        </div>
+        <div class="row-controls">
+          <button id="increment-distance-btn" class="large-btn">+</button>
+          <button id="decrement-distance-btn" class="large-btn">-</button>
+          <select id="distance-step">
+            <option value="0.1">0.1</option>
+            <option value="1.0" selected>1.0</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <!-- Distance input -->
-    <div class="block">
-      <div class="error-message" style="display: none;"></div>
-      <div class="label-input">
-        <label for="distance">Enter a distance value:</label>
-        <input type="number" id="distance" value="4.0" min="0.0" />
+      <!-- Time input and speed computation -->
+      <div class="block">
+        <div class="error-message" style="display: none;"></div>
+        <div class="small-label-input">
+          <label for="time">Enter time to obtain:</label>
+          <input type="text" id="time" value="22.00" />
+        </div>
+        <div class="row-controls">
+          <button id="compute-speed-btn">Compute Needed Speed</button>
+        </div>
+        <div class="result" id="speed-result">Needed speed will appear here...</div>
       </div>
-      <div class="row-controls">
-        <button id="increment-distance-btn" class="large-btn">+</button>
-        <button id="decrement-distance-btn" class="large-btn">-</button>
-        <select id="distance-step">
-          <option value="0.1">0.1</option>
-          <option value="1.0" selected>1.0</option>
-        </select>
-      </div>
-    </div>
 
-    <!-- Time input and speed computation -->
-    <div class="block">
-      <div class="error-message" style="display: none;"></div>
-      <div class="label-input">
-        <label for="time">Enter time to obtain:</label>
-        <input type="text" id="time" value="22.00" />
-      </div>
-      <div class="row-controls">
-        <button id="compute-speed-btn">Compute Needed Speed</button>
-      </div>
-      <div class="result" id="speed-result">Needed speed will appear here...</div>
-    </div>
-
-    <!-- Speed input and time computation -->
-    <div class="block">
-      <div class="error-message" style="display: none;"></div>
-      <div class="label-input">
-        <label for="speed">Enter speed per hour:</label>
-        <input type="number" id="speed" value="11.0" min="0.0" />
-      </div>
-      <div class="row-controls">
-        <button id="increment-speed-btn" class="large-btn">+</button>
-        <button id="decrement-speed-btn" class="large-btn">-</button>
-        <select id="speed-step">
-          <option value="0.1" selected>0.1</option>
-          <option value="1.0">1.0</option>
-        </select>
+      <!-- Speed input and time computation -->
+      <div class="block">
+        <div class="error-message" style="display: none;"></div>
+        <div class="label-input">
+          <label for="speed">Enter speed per hour:</label>
+          <div class="input-select-row">
+            <input type="number" id="speed" value="11.0" min="0.0" />
+            <select id="speed-unit">
+              <option value="km">km</option>
+              <option value="miles">miles</option>
+            </select>
+          </div>
+        </div>
+        <div class="row-controls">
+          <button id="increment-speed-btn" class="large-btn">+</button>
+          <button id="decrement-speed-btn" class="large-btn">-</button>
+          <select id="speed-step">
+            <option value="0.1" selected>0.1</option>
+            <option value="1.0">1.0</option>
+          </select>
+        </div>
         <button id="compute-time-btn">Compute Time</button>
+        <div class="result" id="time-result">Time to cover distance will appear here...</div>
       </div>
-      <div class="result" id="time-result">Time to cover distance will appear here...</div>
-    </div>
   </div>
 
   <script type="module" src="app.js"></script>
