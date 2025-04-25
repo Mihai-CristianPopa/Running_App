@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const distanceStepSelect = document.getElementById('distance-step');
     const timeInput = document.getElementById('time');
     const speedInput = document.getElementById('speed');
-    const speedUnitSelect = document.getElementById('speed-unit');
     const speedStepSelect = document.getElementById('speed-step');
     const speedResult = document.getElementById('speed-result');
     const timeResult = document.getElementById('time-result');
@@ -44,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bindClickAndTouch(document.getElementById('compute-time-btn'), () => {
         const speed = parseFloat(speedInput.value);
+        const speedUnitSelect = document.getElementById('speed-unit');
         const speedUnit = speedUnitSelect.value;
         const distance = parseFloat(distanceInput.value);
         const distanceUnit = distanceUnitSelect.value;

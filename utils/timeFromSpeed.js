@@ -7,9 +7,9 @@ function computeSecondsPerUnit(speed_per_hour) {
 }
 
 function getTimeBasedOnSpeed(speed, distance = 4.0) {
-    const seconds = Math.round(computeSecondsPerUnit(speed) * distance);
-    const formattedTime = computeStrTimeFromSeconds(seconds);
-    return new Time(formattedTime);
+    const totalSeconds = Math.round(computeSecondsPerUnit(speed) * distance);
+    const formattedTimeStr = computeStrTimeFromSeconds(totalSeconds);
+    return new Time(formattedTimeStr);
 }
 
 export function getTimeBasedOnSpeedMessage(speed, speedUnit, distance, distanceUnit, interfaceUnit) {
