@@ -157,7 +157,28 @@
   width: 100%;
 }
 
-.distance-input-select-row {
+.small-label-input {
+    display: flex; /* Use flexbox to align items in a row */
+    flex-direction: row; /* Ensure items are in a horizontal row */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Distribute space between elements */
+    width: 100%; /* Ensure it takes the full width of the container */
+    gap: 0.5rem; /* Add spacing between the label and input/select */
+  }
+
+  .small-label-input label {
+    flex: 0 0 auto; /* Prevent the label from growing or shrinking */
+    text-align: left; /* Align the label text to the left */
+    width: auto; /* Allow the label to take only the necessary width */
+  }
+
+  .small-label-input input,
+  .small-label-input select {
+    flex: 1; /* Allow the input and select to share available space */
+    min-width: 4rem; /* Ensure a minimum width for usability */
+  }
+
+.input-select-row {
     display: flex; /* Use flexbox to align items in a row */
     flex-direction: row; /* Ensure items are in a horizontal row */
     gap: 0.5rem; /* Add spacing between the input and select */
@@ -166,8 +187,8 @@
     align-items: center; /* Align items vertically in the center */
   }
 
-  .distance-input-select-row input,
-  .distance-input-select-row select {
+  .input-select-row input,
+  .input-select-row select {
     flex: 1; /* Allow both input and select to share available space */
     min-width: 4rem; /* Ensure a minimum width for both elements */
   }
@@ -251,8 +272,8 @@ Laptop screens
     </div>
         <!-- Unit selection -->
         <div class="block">
-          <div class="label-input">
-            <label for="unit">Choose the unit of measurement for the computations:</label>
+          <div class="small-label-input">
+            <label for="unit">Treadmill interface unit:</label>
             <select id="unit">
               <option value="km">km</option>
               <option value="miles">miles</option>
@@ -265,7 +286,7 @@ Laptop screens
         <div class="error-message" style="display: none;"></div>
         <div class="label-input">
           <label for="distance">Enter a distance value:</label>
-          <div class="distance-input-select-row">
+          <div class="input-select-row">
             <input type="number" id="distance" value="4.0" min="0.0" />
             <select id="distance-unit">
               <option value="km">km</option>
@@ -286,7 +307,7 @@ Laptop screens
       <!-- Time input and speed computation -->
       <div class="block">
         <div class="error-message" style="display: none;"></div>
-        <div class="label-input">
+        <div class="small-label-input">
           <label for="time">Enter time to obtain:</label>
           <input type="text" id="time" value="22.00" />
         </div>
@@ -301,7 +322,13 @@ Laptop screens
         <div class="error-message" style="display: none;"></div>
         <div class="label-input">
           <label for="speed">Enter speed per hour:</label>
-          <input type="number" id="speed" value="11.0" min="0.0" />
+          <div class="input-select-row">
+            <input type="number" id="speed" value="11.0" min="0.0" />
+            <select id="speed-unit">
+              <option value="km">km</option>
+              <option value="miles">miles</option>
+            </select>
+          </div>
         </div>
         <div class="row-controls">
           <button id="increment-speed-btn" class="large-btn">+</button>
@@ -310,8 +337,8 @@ Laptop screens
             <option value="0.1" selected>0.1</option>
             <option value="1.0">1.0</option>
           </select>
-          <button id="compute-time-btn">Compute Time</button>
         </div>
+        <button id="compute-time-btn">Compute Time</button>
         <div class="result" id="time-result">Time to cover distance will appear here...</div>
       </div>
   </div>

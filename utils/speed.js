@@ -1,21 +1,22 @@
 import { Time } from './time.js';
-import { computeStrTimeFromSeconds, SECONDS_PER_HOUR } from './helpers.js';
+import { computeStrTimeFromSeconds, roundingWithDecimals, SECONDS_PER_HOUR } from './helpers.js';
 import { convertUnit } from './conversions.js';
 
-function computeSpeed(secondsPerUnit) {
-    return Math.round((SECONDS_PER_HOUR / secondsPerUnit) * 10) / 10;
-}
+// function computeSpeed(secondsPerUnit) {
+//     // return Math.round((SECONDS_PER_HOUR / secondsPerUnit) * 10) / 10;
+//     return roundingWithDecimals(SECONDS_PER_HOUR / secondsPerUnit);
+// }
 
 function getSpeedPerHour(timeObject, distance = 4.0) {
     const totalSeconds = timeObject.transformInSeconds();
 
-    const timePerUnit = Math.floor(totalSeconds / distance);
-    const timePerUnitFormatted = computeStrTimeFromSeconds(timePerUnit);
-    const timePerUnitObj = new Time(timePerUnitFormatted);
+    const secondsPerUnit = Math.round(totalSeconds / distance);
+    // const timePerUnitFormatted = computeStrTimeFromSeconds(secondsPerUnit);
+    // const timePerUnitObj = new Time(timePerUnitFormatted);
 
-    let output = computeSpeed(timePerUnitObj.transformInSeconds());
+    let computedSpeed = roundingWithDecimals(SECONDS_PER_HOUR / secondsPerUnit);
 
-    return output;
+    return computedSpeed;
 }
 
 export function getSpeedPerHourMessage(timeStr, distance, distanceUnit, interfaceUnit) {
