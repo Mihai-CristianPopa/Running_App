@@ -7,7 +7,7 @@ function getSpeedPerHour(timeObject, distance = 4.0) {
 
     const secondsPerUnit = parseFloat(totalSeconds / distance);
 
-    const computedSpeed = roundingWithDecimals(SECONDS_PER_HOUR / secondsPerUnit);
+    const computedSpeed = roundingWithDecimals(SECONDS_PER_HOUR / secondsPerUnit, 2);
 
     return computedSpeed;
 }

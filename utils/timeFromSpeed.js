@@ -25,7 +25,7 @@ export function getTimeBasedOnSpeedMessage(speed, speedUnit, distance, distanceU
         speed = convertUnit(speed, speedUnit)
     }
     const time = getTimeBasedOnSpeed(speed, distance);
-    return buildOutputString(roundingWithDecimals(speed), speedUnit, interfaceUnit, roundingWithDecimals(distance, 2), distanceUnit, time.toString(), inputtedDistance, inputtedSpeed);
+    return buildOutputString(roundingWithDecimals(speed, 2), speedUnit, interfaceUnit, roundingWithDecimals(distance, 2), distanceUnit, time.toString(), inputtedDistance, inputtedSpeed);
 }
 
 function buildOutputString(speed, speedUnit, interfaceUnit, distance, distanceUnit, stringifiedTime, inputtedDistance, inputtedSpeed){
