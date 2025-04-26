@@ -35,29 +35,52 @@ export function computeStrTimeFromSeconds(seconds) {
 }
 
 export function validateInput(inputElement, isValidFn, errorMessage, relatedButtons = []) {
+    const errorDisplay = inputElement.closest('.block').querySelector('.error-message');
     inputElement.addEventListener('input', () => {
         const value = inputElement.value;
         if (!isValidFn(value)) {
-            inputElement.title = errorMessage;
-            inputElement.classList.add('invalid');
+            if(isPhoneUser()) {
+              errorDisplay.textContent = errorMessage;
+              errorDisplay.style.display = 'block';
+            } else {
+              inputElement.title = errorMessage;
+              inputElement.classList.add('invalid');
+            }
             relatedButtons.forEach(btn => btn.disabled = true);
         } else {
-            inputElement.title = "";
-            inputElement.classList.remove('invalid');
+            if(isPhoneUser()) {
+              errorDisplay.style.display = 'none';
+            } else {
+              inputElement.title = "";
+              inputElement.classList.remove('invalid');
+            }
             relatedButtons.forEach(btn => btn.disabled = false);
         }
     });
 }
 
-export function changeValueOfNumericInput(inputElement, step, type="integer", increment=true){
+export function changeValueOfNumericInput(inputElement, step, type="float", increment=true){
   if (type === "integer") {
     increment ? inputElement.stepUp(step) : inputElement.stepDown(step);
     return;
   }
 
   const inputValue = parseFloat(inputElement.value)
-  if (inputValue <= 0) return;
+  if (inputValue - step < 0 && !increment) return;
   if (!increment) step = -step
   const result = inputValue + step
   inputElement.value = result.toFixed(1)
+}
+
+function isPhoneUser() {
+  return window.innerWidth <= 600;
+}
+
+export function extractStepValue(stepSelect) {
+  return parseFloat(stepSelect.value)
+}
+
+export function roundingWithDecimals(floatingPointNumber, numberOfDecimalsToKeep = 1) {
+  if (parseFloat(floatingPointNumber) === parseInt(floatingPointNumber)) return parseInt(floatingPointNumber);
+  return Math.round(floatingPointNumber * (10 ** (numberOfDecimalsToKeep))) / (10 ** numberOfDecimalsToKeep);
 }

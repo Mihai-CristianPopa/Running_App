@@ -1,28 +1,32 @@
 import { Time } from './time.js';
-import { computeStrTimeFromSeconds, SECONDS_PER_HOUR } from './helpers.js';
-import { kilometerToMiles } from './conversions.js';
+import { roundingWithDecimals, SECONDS_PER_HOUR } from './helpers.js';
+import { convertUnit } from './conversions.js';
 
-function computeSpeed(secondsPerUnit) {
-    return +(SECONDS_PER_HOUR / secondsPerUnit).toFixed(2);
+function getSpeedPerHour(timeObject, distance = 4.0) {
+    const totalSeconds = timeObject.transformInSeconds();
+
+    const secondsPerUnit = parseFloat(totalSeconds / distance);
+
+    const computedSpeed = roundingWithDecimals(SECONDS_PER_HOUR / secondsPerUnit, 2);
+
+    return computedSpeed;
 }
 
-function getSpeedPerHour(timeToObtainStr, distance = 4, distanceUnit = 'km') {
-    const timeToObtain = new Time(timeToObtainStr);
-    const totalSeconds = timeToObtain.transformInSeconds();
-
-    const timePerUnit = Math.floor(totalSeconds / distance);
-    const timePerUnitFormatted = computeStrTimeFromSeconds(timePerUnit);
-    const timePerUnitObj = new Time(timePerUnitFormatted);
-
-    let output = computeSpeed(timePerUnitObj.transformInSeconds());
-    if (distanceUnit === 'miles') {
-        output = kilometerToMiles(output);
+export function getSpeedPerHourMessage(timeStr, distance, distanceUnit, interfaceUnit) {
+    let inputtedDistance = null
+    if (interfaceUnit !== distanceUnit) {
+        // Convert the distance from what you expect in what you are going to see on the treadmill screen
+        inputtedDistance = distance
+        distance = convertUnit(distance, distanceUnit)
     }
-
-    return output;
+    const timeObject = new Time(timeStr)
+    const computedSpeed = getSpeedPerHour(timeObject, distance);
+    return buildOutputString(roundingWithDecimals(distance, 2), distanceUnit, timeObject.toString(), computedSpeed, interfaceUnit, inputtedDistance)
 }
 
-export function getSpeedPerHourMessage(timeStr, distance, unit) {
-    const speed = getSpeedPerHour(timeStr, distance, unit);
-    return `To run ${distance} ${unit} in ${timeStr} you must run with ${speed} ${unit} per hour.`;
+function buildOutputString(distance, distanceUnit, stringifiedTime, computedSpeed, interfaceUnit, inputtedDistance){
+    if (inputtedDistance === null) {
+       return `To run ${distance} ${distanceUnit} in ${stringifiedTime} you must run with ${computedSpeed} ${interfaceUnit} per hour.`;
+    }
+    return `To run ${inputtedDistance} ${distanceUnit} (which is the equivalent of ${distance} ${interfaceUnit}) in ${stringifiedTime} you must run with ${computedSpeed} ${interfaceUnit} per hour.`;
 }
