@@ -7,7 +7,7 @@ function getSpeedPerHour(timeObject, distance = 4.0) {
 
     const secondsPerUnit = parseFloat(totalSeconds / distance);
 
-    const computedSpeed = roundingWithDecimals(SECONDS_PER_HOUR / secondsPerUnit, 2);
+    const computedSpeed = roundingWithDecimals(SECONDS_PER_HOUR / secondsPerUnit);
 
     return computedSpeed;
 }
@@ -21,7 +21,7 @@ export function getSpeedPerHourMessage(timeStr, distance, distanceUnit, interfac
     }
     const timeObject = new Time(timeStr)
     const computedSpeed = getSpeedPerHour(timeObject, distance);
-    return buildOutputString(roundingWithDecimals(distance, 2), distanceUnit, timeObject.toString(), computedSpeed, interfaceUnit, inputtedDistance)
+    return buildOutputString(roundingWithDecimals(distance), distanceUnit, timeObject.toString(), computedSpeed, interfaceUnit, inputtedDistance)
 }
 
 function buildOutputString(distance, distanceUnit, stringifiedTime, computedSpeed, interfaceUnit, inputtedDistance){

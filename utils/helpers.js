@@ -80,7 +80,7 @@ export function extractStepValue(stepSelect) {
   return parseFloat(stepSelect.value)
 }
 
-export function roundingWithDecimals(floatingPointNumber, numberOfDecimalsToKeep = 1) {
+export function roundingWithDecimals(floatingPointNumber, numberOfDecimalsToKeep = 2) {
   if (parseFloat(floatingPointNumber) === parseInt(floatingPointNumber)) return parseInt(floatingPointNumber);
-  return Math.round(floatingPointNumber * (10 ** (numberOfDecimalsToKeep))) / (10 ** numberOfDecimalsToKeep);
+  return +(parseFloat(floatingPointNumber).toFixed(numberOfDecimalsToKeep))
 }
