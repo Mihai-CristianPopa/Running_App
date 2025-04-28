@@ -1,0 +1,30 @@
+export const translations = {
+    en: {
+        title: "Runner's App",
+        header: "Speed and Time Computations",
+        unitLabel: "Treadmill interface unit:",
+        distanceLabel: "Enter a distance value:",
+        timeLabel: "Enter time to obtain:",
+        speedLabel: "Enter speed per hour:",
+        computeSpeedBtn: "Compute Speed",
+        computeTimeBtn: "Compute Time",
+        speedResultPlaceholder: "Speed per hour will appear here...",
+        timeResultPlaceholder: "Time to cover distance will appear here...",
+        unitOptions: ["km", "miles"],
+        stepOptions: ["0.1", "1.0"],
+    },
+    ro: {
+        title: "Aplicația alergătorului",
+        header: "Calculul vitezei și al timpului",
+        unitLabel: "Unitatea interfeței benzii de alergare :",
+        distanceLabel: "Introduceți o distanță :",
+        timeLabel: "Introduceți timpul pe care să-l obțineți :",
+        speedLabel: "Introduceți viteza pe oră :",
+        computeSpeedBtn: "Calculează viteza",
+        computeTimeBtn: "Calculează timpul",
+        speedResultPlaceholder: "Viteza pe oră va apărea aici...",
+        timeResultPlaceholder: "Timpul pentru acoperirea distanței va apărea aici...",
+        unitOptions: ["km", "mile"],
+        stepOptions: ["0,1", "1,0"],
+    }
+};

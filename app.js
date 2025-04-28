@@ -1,15 +1,49 @@
 import { getSpeedPerHourMessage } from './utils/speed.js';
 import { getTimeBasedOnSpeedMessage } from './utils/timeFromSpeed.js';
-import { bindClickAndTouch, changeValueOfNumericInput, extractStepValue, validateInput } from './utils/helpers.js';
+import { bindClickAndTouch, changeValueOfNumericInput, extractStepValue, getTranslatedStepOptionSelectedValue, setSelectOptions, validateInput } from './utils/helpers.js';
 import { isNonNegativeFloat, isValidTimeFormat } from './utils/validators.js';
+import { translations } from './utils/constants.js';
 document.addEventListener('DOMContentLoaded', () => {
-    const interfaceUnitSelect = document.getElementById('unit');
-    const distanceInput = document.getElementById('distance');
-    const distanceUnitSelect = document.getElementById('distance-unit');
+    // Setting Labels based on user's preffered browser language
+    const userLanguage = (navigator.language).split("-")[0] || "en";
+    const displayTexts = translations[userLanguage];
+    document.title = displayTexts.title;
+    document.querySelector(".header h1").textContent = displayTexts.header;
+    document.querySelector("label[for='unit']").textContent = displayTexts.unitLabel;
+    document.querySelector("label[for='distance']").textContent = displayTexts.distanceLabel;
+    document.querySelector("label[for='time']").textContent = displayTexts.timeLabel;
+    document.querySelector("label[for='speed']").textContent = displayTexts.speedLabel;
+    document.getElementById("compute-speed-btn").textContent = displayTexts.computeSpeedBtn;
+    document.getElementById("compute-time-btn").textContent = displayTexts.computeTimeBtn;
+    document.getElementById("speed-result").textContent = displayTexts.speedResultPlaceholder;
+    document.getElementById("time-result").textContent = displayTexts.timeResultPlaceholder;
+
+    const interfaceUnitSelect = document.getElementById("unit");
+    setSelectOptions(interfaceUnitSelect, displayTexts.unitOptions);
+
+    const distanceUnitSelect = document.getElementById("distance-unit");
+    setSelectOptions(distanceUnitSelect, displayTexts.unitOptions);
+
+    const speedUnitSelect = document.getElementById('speed-unit');
+    setSelectOptions(speedUnitSelect, displayTexts.unitOptions);
+
     const distanceStepSelect = document.getElementById('distance-step');
+    setSelectOptions(distanceStepSelect, displayTexts.stepOptions);
+    const distanceStepValue = getTranslatedStepOptionSelectedValue(displayTexts.stepOptions, 1, 0);
+    if (distanceStepValue) {
+        distanceStepSelect.value = distanceStepValue;
+    }
+
+    const speedStepSelect = document.getElementById('speed-step');
+    setSelectOptions(speedStepSelect, displayTexts.stepOptions);
+    const speedStepValuet = getTranslatedStepOptionSelectedValue(displayTexts.stepOptions, 0, 1);
+    if (speedStepValuet) {
+        speedStepSelect.value = speedStepValuet;
+    }
+
+    const distanceInput = document.getElementById('distance');
     const timeInput = document.getElementById('time');
     const speedInput = document.getElementById('speed');
-    const speedStepSelect = document.getElementById('speed-step');
     const speedResult = document.getElementById('speed-result');
     const timeResult = document.getElementById('time-result');
 
@@ -43,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bindClickAndTouch(document.getElementById('compute-time-btn'), () => {
         const speed = parseFloat(speedInput.value);
-        const speedUnitSelect = document.getElementById('speed-unit');
         const speedUnit = speedUnitSelect.value;
         const distance = parseFloat(distanceInput.value);
         const distanceUnit = distanceUnitSelect.value;

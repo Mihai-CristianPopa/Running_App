@@ -84,3 +84,16 @@ export function roundingWithDecimals(floatingPointNumber, numberOfDecimalsToKeep
   if (parseFloat(floatingPointNumber) === parseInt(floatingPointNumber)) return parseInt(floatingPointNumber);
   return +(parseFloat(floatingPointNumber).toFixed(numberOfDecimalsToKeep))
 }
+
+export function setSelectOptions(selectBox, options) {
+  selectBox.innerHTML = options
+  .map(option => `<option value="${option}">${option}</option>`)
+  .join("");
+}
+
+export function getTranslatedStepOptionSelectedValue(stepOptions, nonDecimalDigit, decimalDigit) {
+  return stepOptions.find(option => {
+    const parts = option.split(/[.,]/); // Split by dot or comma
+    return parts[0] === `${nonDecimalDigit}` && parts[1] === `${decimalDigit}`; // Check if the first part is "1" and the second is "0"
+});
+}
