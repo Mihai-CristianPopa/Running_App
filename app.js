@@ -1,14 +1,14 @@
 import { getSpeedPerHourMessage } from './utils/speed.js';
 import { getTimeBasedOnSpeedMessage } from './utils/timeFromSpeed.js';
-import { bindClickAndTouch, changeValueOfNumericInput, extractStepValue, getTranslatedStepOptionSelectedValue, setSelectOptions, validateInput } from './utils/helpers.js';
+import { bindClickAndTouch, changeValueOfNumericInput, extractStepValue, getTranslatedStepOptionSelectedValue, setSelectOptions, selectOptionsLanguageMapper, validateInput } from './utils/helpers.js';
 import { isNonNegativeFloat, isValidTimeFormat } from './utils/validators.js';
 import { translations } from './utils/constants.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Setting Labels based on user's preffered browser language
-    const userLanguage = (navigator.language).split("-")[0] || "en";
+    let userLanguage = (navigator.language).split("-")[0] || "en";
     const displayTexts = translations[userLanguage];
     document.title = displayTexts.title;
-    document.querySelector(".header h1").textContent = displayTexts.header;
+    document.querySelector(".block h1").textContent = displayTexts.header;
     document.querySelector("label[for='unit']").textContent = displayTexts.unitLabel;
     document.querySelector("label[for='distance']").textContent = displayTexts.distanceLabel;
     document.querySelector("label[for='time']").textContent = displayTexts.timeLabel;
@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("compute-time-btn").textContent = displayTexts.computeTimeBtn;
     document.getElementById("speed-result").textContent = displayTexts.speedResultPlaceholder;
     document.getElementById("time-result").textContent = displayTexts.timeResultPlaceholder;
+
+    const languageSelect = document.getElementById('language');
+    setSelectOptions(languageSelect, ["English", "Română"], selectOptionsLanguageMapper);
+    languageSelect.value = userLanguage
 
     const interfaceUnitSelect = document.getElementById("unit");
     setSelectOptions(interfaceUnitSelect, displayTexts.unitOptions);
@@ -50,6 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the step attribute for distance and speed inputs
     distanceInput.step = parseFloat(distanceStepSelect.value);
     speedInput.step = parseFloat(speedStepSelect.value);
+
+    // languageSelect.addEventListener('change', () => {
+    //     userLanguage = languageSelect.value;
+    //     updateTexts(userLanguage);
+    // });
 
     distanceStepSelect.addEventListener('change', () => {
         const selectedStep = parseFloat(distanceStepSelect.value);
@@ -98,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bindClickAndTouch(document.getElementById('decrement-speed-btn'), () => changeValueOfNumericInput(speedInput, extractStepValue(speedStepSelect), "float", false));
 
-    validateInput(distanceInput, (val) => isNonNegativeFloat(val), "Distance must be a positive floating point number", [document.getElementById('compute-speed-btn'), document.getElementById('compute-time-btn')]);
-    validateInput(speedInput, (val) => isNonNegativeFloat(val), "Speed must be a positive floating point number", [document.getElementById('compute-time-btn')]);
-    validateInput(timeInput, (val) => isValidTimeFormat(val), "Time must be in one of the formats formats like mm:ss, hh:mm:ss, mm.ss, hh.mm.ss, or 999", [document.getElementById('compute-speed-btn')]);
+    validateInput(distanceInput, (val) => isNonNegativeFloat(val), displayTexts.distanceError, [document.getElementById('compute-speed-btn'), document.getElementById('compute-time-btn')]);
+    validateInput(speedInput, (val) => isNonNegativeFloat(val), displayTexts.speedError, [document.getElementById('compute-time-btn')]);
+    validateInput(timeInput, (val) => isValidTimeFormat(val), displayTexts.timeError, [document.getElementById('compute-speed-btn')]);
 });

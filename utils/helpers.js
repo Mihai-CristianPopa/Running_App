@@ -1,3 +1,5 @@
+import { languageToCode } from './constants.js'
+
 export const MINUTES_PER_HOUR = 60;
 export const SECONDS_PER_HOUR = MINUTES_PER_HOUR * 60;
 
@@ -85,9 +87,9 @@ export function roundingWithDecimals(floatingPointNumber, numberOfDecimalsToKeep
   return +(parseFloat(floatingPointNumber).toFixed(numberOfDecimalsToKeep))
 }
 
-export function setSelectOptions(selectBox, options) {
+export function setSelectOptions(selectBox, options, mapper=genericSelectOptionsMapper) {
   selectBox.innerHTML = options
-  .map(option => `<option value="${option}">${option}</option>`)
+  .map(option => mapper(option))
   .join("");
 }
 
@@ -96,4 +98,12 @@ export function getTranslatedStepOptionSelectedValue(stepOptions, nonDecimalDigi
     const parts = option.split(/[.,]/); // Split by dot or comma
     return parts[0] === `${nonDecimalDigit}` && parts[1] === `${decimalDigit}`; // Check if the first part is "1" and the second is "0"
 });
+}
+
+export function selectOptionsLanguageMapper(option) {
+  return `<option value="${languageToCode[option]}">${option}</option>`
+}
+
+function genericSelectOptionsMapper(option) {
+  return `<option value="${option}">${option}</option>`
 }
